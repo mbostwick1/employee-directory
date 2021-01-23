@@ -1,15 +1,18 @@
-import React from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Search from "../components/Search/Search";
 import Employee from "../components/Employee/Employee";
+import API from "../utils/API";
 
 const Home = () => {
+  const [employee, setEmployee] = useState([]);
 
-    
-
-
-
-
+  useEffect(() => {
+    API.getEmployee()
+      .then((res) => {
+        setEmployee(res.data.results);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <>
@@ -43,8 +46,16 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-            
-          </tbody>
+              {employee.map((employee) => (
+                <Employee
+                  name={employee.name}
+                  phone={employee.phone}
+                  email={employee.email}
+                  picture={employee.picture}
+                  key={employee.login.uuid}
+                />
+              ))}
+            </tbody>
           </table>
         </div>
       </section>

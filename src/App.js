@@ -1,10 +1,7 @@
-
-import Home from "./containers/Home"
+import Home from "./containers/Home";
 
 function App() {
-  return (
-          <Home />
-  );
+  return <Home />;
 }
 
 export default App;
