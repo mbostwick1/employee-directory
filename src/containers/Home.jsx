@@ -5,7 +5,9 @@ import API from "../utils/API";
 
 const Home = () => {
   const [employee, setEmployee] = useState([]);
+  const [search, setSearch] = useState("");
 
+  //   api call to populate init load
   useEffect(() => {
     API.getEmployee()
       .then((res) => {
@@ -13,6 +15,13 @@ const Home = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  // filter search results
+
+  const handleInputChange = (event) => {
+    let value = event.target.value;
+    setSearch(value);
+  };
 
   return (
     <>
@@ -29,7 +38,7 @@ const Home = () => {
       {/* SEARCH */}
       <section className="hero has-text-centered">
         <div className="container">
-          <Search />
+          <Search onChange={handleInputChange} value={search} />
         </div>
       </section>
 
@@ -46,15 +55,27 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {employee.map((employee) => (
-                <Employee
-                  name={employee.name}
-                  phone={employee.phone}
-                  email={employee.email}
-                  picture={employee.picture}
-                  key={employee.login.uuid}
-                />
-              ))}
+              {employee
+                .filter(
+                  (employee) =>
+                    employee.name.first
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) ||
+                    employee.name.last
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) ||
+                    employee.phone.includes(search) ||
+                    employee.email.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((employee) => (
+                  <Employee
+                    name={employee.name}
+                    phone={employee.phone}
+                    email={employee.email}
+                    picture={employee.picture}
+                    key={employee.login.uuid}
+                  />
+                ))}
             </tbody>
           </table>
         </div>
