@@ -17,10 +17,25 @@ const Home = () => {
   }, []);
 
   // filter search results
-
   const handleInputChange = (event) => {
     let value = event.target.value;
     setSearch(value);
+  };
+
+//   sort results
+  const handleSortEmployee = () => {
+
+    const sortEmployee = [...employee];
+    const sortedEmployee = sortEmployee.sort((a, b) => {
+        if (a.name.last < b.name.last) {
+            return employee.direction === 'ascending' ? 1 : -1;
+        }
+        else if (a.name.last > b.name.last) {
+            return employee.direction === 'descending' ? -1 : 1;
+        }
+        return 0;
+      });
+      setEmployee(sortedEmployee)
   };
 
   return (
@@ -30,7 +45,7 @@ const Home = () => {
         <div className="container">
           <h1 className="title">Employee Directory</h1>
           <h2 className="subtitle">
-            Use the search below to filter through employees
+            Use the search field below to filter through employees and click name to sort alphabetically
           </h2>
         </div>
       </section>
@@ -49,7 +64,7 @@ const Home = () => {
             <thead>
               <tr>
                 <th>Photo</th>
-                <th>Name</th>
+                <th onClick={handleSortEmployee} id= "nameSort">Name</th>
                 <th>Phone</th>
                 <th>Email</th>
               </tr>
