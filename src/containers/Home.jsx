@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/Search/Search";
 import Employee from "../components/Employee/Employee";
 import API from "../utils/API";
+import "./Home.css";
 
 const Home = () => {
   const [employee, setEmployee] = useState([]);
@@ -22,49 +23,47 @@ const Home = () => {
     setSearch(value);
   };
 
-//   sort results
+  //   sort results
   const handleSortEmployee = () => {
-
     const sortEmployee = [...employee];
     const sortedEmployee = sortEmployee.sort((a, b) => {
-        if (a.name.last < b.name.last) {
-            return employee.direction === 'ascending' ? 1 : -1;
-        }
-        else if (a.name.last > b.name.last) {
-            return employee.direction === 'descending' ? -1 : 1;
-        }
-        return 0;
-      });
-      setEmployee(sortedEmployee)
+      if (a.name.last < b.name.last) {
+        return employee.direction === "ascending" ? 1 : -1;
+      } else if (a.name.last > b.name.last) {
+        return employee.direction === "descending" ? -1 : 1;
+      }
+      return 0;
+    });
+    setEmployee(sortedEmployee);
   };
 
   return (
     <>
       {/* HEADER */}
-      <section className="hero is-danger has-text-centered">
+      <section className="hero is-danger has-text-centered" id="header">
         <div className="container">
-          <h1 className="title">Employee Directory</h1>
+          <h1 className="title" id="headline">Employee Directory</h1>
           <h2 className="subtitle">
-            Use the search field below to filter through employees and click name to sort alphabetically
+            Use the search field below to filter through employees and click
+            name to sort alphabetically
           </h2>
-        </div>
-      </section>
-
-      {/* SEARCH */}
-      <section className="hero has-text-centered">
-        <div className="container">
-          <Search onChange={handleInputChange} value={search} />
+          {/* SEARCH */}
+          <div className="container" id="search">
+            <Search onChange={handleInputChange} value={search} />
+          </div>
         </div>
       </section>
 
       {/* EMPLOYEE TABLE */}
-      <section className="hero has-text-centered">
+      <section className="hero has-text-centered" id="employee">
         <div className="table-container">
           <table class="table is-fullwidth">
             <thead>
               <tr>
                 <th>Photo</th>
-                <th onClick={handleSortEmployee} id= "nameSort">Name</th>
+                <th onClick={handleSortEmployee} id="nameSort">
+                  Name
+                </th>
                 <th>Phone</th>
                 <th>Email</th>
               </tr>

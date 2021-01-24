@@ -1,0 +1,21 @@
+#header {
+    padding: 30px;
+}
+
+#headline {
+    font-size: 50px;
+    padding-bottom: 5px;
+}
+
+#search {
+    padding: 5px;
+    width: 70%;
+}
+
+#employee {
+    margin: 30px;
+}
+
+#nameSort {
+    cursor: pointer;
+}
