@@ -24,7 +24,7 @@
 
 - npm init -y
 - npm install react-router-dom
-- npm npm i axios
+- npm install axios
 
  ## Usage
 
